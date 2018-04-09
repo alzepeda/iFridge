@@ -11,8 +11,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        
+
 
        // hello world
+
+        String l = "second attempt";
     }
 }
