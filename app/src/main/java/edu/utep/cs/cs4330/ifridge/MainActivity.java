@@ -11,8 +11,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        for(int i = 0; i < 10; i++);
-        System.out.println("hello");
-        System.out.println("anna");
+
+
+       // hello world
+
+        String l = "second attempt";
     }
 }
