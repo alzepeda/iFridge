@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/newFridgeClicked"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="57dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quantity" />
+
+    <EditText
+        android:id="@+id/quantityEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingredient" />
+
+    <EditText
+        android:id="@+id/ingredientEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addButtonClicked"
+        android:text="Add" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="47dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
+
+    <Button
+        android:id="@+id/removeFridge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="removeFidgeClicked"
+        android:text="Remove" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="49dp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:text="Here, the ingredients would be displayed"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+</LinearLayout>
