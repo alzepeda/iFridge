@@ -1,7 +1,7 @@
 package edu.utep.cs.cs4330.ifridge;
 
 /**iFridge app
- * @author Ana Zapeda, Sebastian Gonzalez
+ * @author Ana Zepeda, Sebastian Gonzalez
  * @version 1.0
  *
  * This app will allow the user to discover delicious recipes with the ingredients found in the user's refrigerator.**/
