@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
     public void fridgeButtonClicked(View view) {
         toast("Fridge");
         Intent myIntent = new Intent(MainActivity.this, FridgeActivity.class);
-        MainActivity.this.startActivity(myIntent);
+        startActivity(myIntent);
     }
 
     public void recipesButtonClicked(View view) {
         toast("Recipes");
         Intent myIntent = new Intent(MainActivity.this, RecipeActivity.class);
-        MainActivity.this.startActivity(myIntent);
+        startActivity(myIntent);
     }
 }
