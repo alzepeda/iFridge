@@ -9,10 +9,15 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class RecipeActivity extends AppCompatActivity{
+    RecipeDatabaseHelper recipeDatabaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe);
-        Intent intent = getIntent();
+        recipeDatabaseHelper =new RecipeDatabaseHelper(this);
+
+
+
     }
 }

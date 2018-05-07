@@ -52,7 +52,7 @@ public class FridgeActivity extends AppCompatActivity {
         }
 
         boolean isInserted = fridgeDB.insertData(ingredient);
-        if(isInserted = true)
+        if(isInserted)
             Toast.makeText(FridgeActivity.this, "Ingredient Inserted", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(FridgeActivity.this, "Ingredient not Inserted", Toast.LENGTH_SHORT).show();
