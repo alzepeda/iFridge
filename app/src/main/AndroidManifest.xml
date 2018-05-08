@@ -21,11 +21,16 @@
         <activity
             android:name=".FridgeActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RecipeActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".IngredientsInRecipe"
+            android:parentActivityName=".RecipeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 
 </manifest>

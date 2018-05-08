@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/recipe_background">
+
     <Button
         android:id="@+id/addRecipeButton"
         android:layout_width="wrap_content"
@@ -22,10 +23,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintVertical_bias="0.224" />
     <TextView
         android:id="@+id/textViewDescription"
         android:layout_width="284dp"
@@ -92,4 +93,23 @@
             </ListView>
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/findRecipeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="findRecipes"
+        android:text="Find Recipes"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.709"
+        app:layout_constraintStart_toEndOf="@+id/addRecipeButton"
+        app:layout_constraintTop_toBottomOf="@+id/addRecipeTextView"
+        app:layout_constraintVertical_bias="0.121" />
 </android.support.constraint.ConstraintLayout>
