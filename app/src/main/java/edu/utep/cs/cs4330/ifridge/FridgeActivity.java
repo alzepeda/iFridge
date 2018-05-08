@@ -23,14 +23,16 @@ public class FridgeActivity extends AppCompatActivity {
     FridgeDatabaseHelper fridgeDB;
     EditText editIngredient;
     Button addIngredient;
-
+    ArrayList<String> foods;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fridge);
+        foods = new ArrayList<>();
+        foods.add("tomato");
         fridgeDB = new FridgeDatabaseHelper(this);
 
-        editIngredient = findViewById(R.id.editIngredient);
+        editIngredient = findViewById(R.id.editIngredientEditTExt);
         addIngredient = findViewById(R.id.addIngredientButton);
 
         showIngredients();
@@ -39,43 +41,45 @@ public class FridgeActivity extends AppCompatActivity {
 
     public void addButtonClicked(View view) {
         String ingredient = editIngredient.getText().toString();
-        Cursor res = fridgeDB.getAllData();
-        StringBuffer buffer;
+        foods.add(ingredient);
 
-        while(res.moveToNext()){
-            buffer = new StringBuffer();
-            buffer.append(res.getString(1));
-            if(ingredient.equalsIgnoreCase(buffer.toString())){
-                Toast.makeText(FridgeActivity.this, "Item already contained", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
 
-        boolean isInserted = fridgeDB.insertData(ingredient);
-        if(isInserted)
-            Toast.makeText(FridgeActivity.this, "Ingredient Inserted", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(FridgeActivity.this, "Ingredient not Inserted", Toast.LENGTH_SHORT).show();
-
-        showIngredients();
+//        Cursor res = fridgeDB.getAllData();
+//        StringBuffer buffer;
+//
+//        while(res.moveToNext()){
+//            buffer = new StringBuffer();
+//            buffer.append(res.getString(1));
+//            if(ingredient.equalsIgnoreCase(buffer.toString())){
+//                Toast.makeText(FridgeActivity.this, "Item already contained", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//        }
+//
+//        boolean isInserted = fridgeDB.insertData(ingredient);
+//        if(isInserted)
+//            Toast.makeText(FridgeActivity.this, "Ingredient Inserted", Toast.LENGTH_SHORT).show();
+//        else
+//            Toast.makeText(FridgeActivity.this, "Ingredient not Inserted", Toast.LENGTH_SHORT).show();
+//
+//        showIngredients();
     }
 
     public void showIngredients() {
-        StringBuffer buffer;
-        ArrayList foods = new ArrayList<String>();
+     //   StringBuffer buffer;
 
-        Cursor res = fridgeDB.getAllData();
-        if(res.getCount() != 0) {
 
-            while (res.moveToNext()) {
-                buffer = new StringBuffer();
-                buffer.append(res.getString(1));
-                foods.add(buffer.toString());
-            }
-
-            ListAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, foods);
-            ListView listView = (ListView) findViewById(R.id.listViewforIngredients);
+//        Cursor res = fridgeDB.getAllData();
+//        if(res.getCount() != 0) {
+//
+//            while (res.moveToNext()) {
+//                buffer = new StringBuffer();
+//                buffer.append(res.getString(1));
+//                foods.add(buffer.toString());
+//            }
+            ListAdapter listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foods);
+            ListView listView = findViewById(R.id.listViewforIngredients);
             listView.setAdapter(listAdapter);
-        }
+
     }
 }
