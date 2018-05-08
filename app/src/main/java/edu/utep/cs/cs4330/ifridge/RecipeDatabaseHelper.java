@@ -1,5 +1,9 @@
+/**Created by
+@author AnaZepeda
+@author SebastianGonzalez
+@version 2.1
+*/
 package edu.utep.cs.cs4330.ifridge;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -53,4 +57,3 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
 
     }
 }
-

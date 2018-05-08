@@ -1,10 +1,9 @@
+/**Created by
+@author AnaZepeda
+@author SebastianGonzalez
+@version 2.1
+*/
 package edu.utep.cs.cs4330.ifridge;
-
-/**iFridge app
- * @author Ana Zepeda, Sebastian Gonzalez
- * @version 1.0
- *
- * This app will allow the user to discover delicious recipes with the ingredients found in the user's refrigerator.**/
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

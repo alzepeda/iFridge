@@ -1,3 +1,8 @@
+/**Created by
+@author AnaZepeda
+@author SebastianGonzalez
+@version 2.1
+*/
 package edu.utep.cs.cs4330.ifridge;
 
 import android.content.ContentValues;
@@ -6,9 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by AnaZepeda on 5/3/18.
- */
+
 
 public class FridgeDatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Fridge.db";

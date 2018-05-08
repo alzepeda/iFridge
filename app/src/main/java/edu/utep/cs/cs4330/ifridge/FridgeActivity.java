@@ -1,5 +1,9 @@
+/**Created by
+@author AnaZepeda
+@author SebastianGonzalez
+@version 2.1
+*/
 package edu.utep.cs.cs4330.ifridge;
-
 
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -19,41 +23,26 @@ import java.lang.String;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-/**
- * Created by AnaZepeda on 5/3/18.
- */
-public class FridgeActivity extends AppCompatActivity{
-    FridgeDatabaseHelper fridgeDB;
-    EditText editIngredient, editQuantity;
-    TextView  editTotalItems;;
-    Button addIngredient;
-    List<String> foods;
 
-    ListView listView;
-    ListAdapter listAdapter;
+public class FridgeActivity extends AppCompatActivity{
+    private FridgeDatabaseHelper fridgeDB;
+    public TextView editTotalItems;
+    private EditText editIngredient;
+    private Button addIngredient;
+    public List<String> foods;
+    private ListView listView;
+    private ListAdapter listAdapter;
+
     @Override
     protected void onPause() {
         super.onPause();
-        Hashtable<String,Integer> table = new Hashtable<>(foods.size());
-        for (String a: foods) {
-            int items = foods.indexOf(a) - foods.lastIndexOf(a);
-            if(items == 0){
-                items = 1;
-            }
-            table.put(a,items);
-            for (int i = 0; i < items; i++) {
-                foods.add(a);
-
-            }
-        }
-
-
         StringBuffer buffer;
         Cursor res = fridgeDB.getAllData();
         if(res.getCount() != 0) {
             while (res.moveToNext()) {
                 buffer = new StringBuffer();
                 buffer.append(res.getString(0));
+                foods.add(buffer.toString());
             }
         }
     }
@@ -62,7 +51,6 @@ public class FridgeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fridge);
         foods = new ArrayList<>();
-
         fridgeDB = new FridgeDatabaseHelper(this);
         listView = findViewById(R.id.listViewforIngredients);
         listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foods);
@@ -70,6 +58,7 @@ public class FridgeActivity extends AppCompatActivity{
         addIngredient = findViewById(R.id.addIngredientButton);
         editTotalItems = findViewById(R.id.totalItemsEditTExt);
         editQuantity = findViewById(R.id.ingredientQuatity);
+
         StringBuffer buffer;
         Cursor res = fridgeDB.getAllData();
         if(res.getCount() != 0) {
@@ -81,33 +70,27 @@ public class FridgeActivity extends AppCompatActivity{
                 foods.add(buffer.toString());
             }
         }
-new Thread(){
-    @Override
-    public void run() {
-        super.run();
-        listView.setOnItemClickListener((a, v, position, id) ->
-                showAlertDialog(position));
-    }
-}.start();
+        listView.setOnItemClickListener((a, v, position, id) ->showAlertDialog(position));
         showIngredients();
     }
+    /**Alert Dialog to Delete items from list and DB*/
     private void showAlertDialog(int index){
         toast(String.valueOf(index));
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Delete")
+        builder.setText("Are you sure you want\n to delete this item?");
 
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        String itemTOdelete = listAdapter.getItem(index).toString();
-
-                        if(fridgeDB.delete(itemTOdelete)){
+                        String itemTOdelete = listAdapter.getItem(index).toString();// get the item user wants to delete from ListView
+                        if(fridgeDB.delete(itemTOdelete)){ //if exists in DB and was Successfully deleted
                          toast("Successfully deleted "+itemTOdelete);
                          foods.remove(index);
                          showIngredients();}
                         else {
-                            toast("Failed");
+                            toast("Failed or Not found");
                         }
                     }
                 })
@@ -116,57 +99,38 @@ new Thread(){
                       toast("Cancelled");
                     }
                 });
-        // Create the AlertDialog object and return it
-        builder.create();
-        builder.show();
+        builder.create(); //build AlertDialog
+        builder.show();//show AlertDialog
     }
-
+/**Toast a message to the user*/
     private void toast(String msg){
         Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
     }
-
+/**Activated when user taps Add button*/
     public void addButtonClicked(View view) {
         String ingredient = editIngredient.getText().toString();
-        if(editQuantity.getText().toString().isEmpty()){
-            toast("Insert a Quantity please");
-            return;
-        }
-        else if(editIngredient.getText().toString().isEmpty()) {
+
+       if(editIngredient.getText().toString().isEmpty()) {    // if no input, request input
             toast("Please write an ingredient");
             return;
         }
-        int quantity =Integer.parseInt(editQuantity.getText().toString());
-        if(quantity > 10){
-            toast(" limit is 10 per ingredient");
-            return;
-        }
-        Cursor res = fridgeDB.getAllData();
-
-
-
-
-        for (int i = 0; i < quantity; i++) {
+        Cursor res = fridgeDB.getAllData(); //Call DB and retrieve all associated data
         boolean isInserted = fridgeDB.insertData(ingredient);
         if(isInserted) {
-            Toast.makeText(FridgeActivity.this, "Ingredient Inserted", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(FridgeActivity.this, "Ingredient not Inserted", Toast.LENGTH_SHORT).show();
-        }
+          toast("Ingredient Inserted");
             foods.add(ingredient);
+        }else {
+          toast("Ingredient not Inserted");
+          }
+
         }
 
         showIngredients();
-    }
 
+//show the ingredients currently in the Array
     public void showIngredients() {
-
            editTotalItems.setText(String.valueOf(foods.size()));
             listView.setAdapter(listAdapter);
 
         }
-        private void saveCount(){
-
-
-        }
     }
-
