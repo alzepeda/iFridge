@@ -55,15 +55,8 @@ public class FridgeDatabaseHelper extends SQLiteOpenHelper {
 
     public boolean delete(String item){
         SQLiteDatabase db = getWritableDatabase();
-
-                return db.delete(TABLE_NAME, COL_1 + "=" + "'"+item+"'", null) > 0;
-
+        return db.delete(TABLE_NAME, COL_1 + "=" + "'"+item+"'", null) > 0;
         }
-
-
-
-
-
     public Cursor getAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);

@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.lang.String;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 public class FridgeActivity extends AppCompatActivity{
