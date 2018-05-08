@@ -22,7 +22,7 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"(RECIPE_NAME TEXT");
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"(RECIPE_NAME TEXT)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
@@ -36,7 +36,7 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
         item.toLowerCase();
         recipesDatabase = getWritableDatabase();
         contentValues = new ContentValues();
-        contentValues.put(COL_2,item);
+        contentValues.put(COL_1,item);
         long result = recipesDatabase.insert(TABLE_NAME,null,contentValues);
         if(result < 0){
             return false;
