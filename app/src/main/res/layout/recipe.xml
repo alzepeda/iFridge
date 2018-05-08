@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/recipe_background">
-
     <Button
         android:id="@+id/addRecipeButton"
         android:layout_width="wrap_content"
@@ -27,9 +26,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.24" />
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewDescription"
         android:layout_width="284dp"
         android:layout_height="93dp"
         android:layout_marginBottom="8dp"
@@ -45,9 +43,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.923" />
-
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/addRecipeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -61,7 +58,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.38" />
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="375dp"
@@ -78,17 +74,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <ListView
                 android:id="@+id/recipeListView"
                 android:layout_width="wrap_content"
                 android:layout_height="252dp"
-
                 android:background="@color/mid_transparent_greenblue"
                 android:cacheColorHint="@android:color/black"
                 android:divider="@android:color/black"
@@ -96,10 +89,7 @@
                 android:footerDividersEnabled="false"
                 android:headerDividersEnabled="true"
                 android:scrollbars="vertical">
-
             </ListView>
-
         </LinearLayout>
     </ScrollView>
-
 </android.support.constraint.ConstraintLayout>
