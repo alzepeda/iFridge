@@ -9,9 +9,9 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/recipeNameEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/editRecipeName"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -19,60 +19,89 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Recipe Name"
         android:inputType="textPersonName"
-        android:text="Recipe Name"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.043" />
 
     <EditText
-        android:id="@+id/recipeDescriptionEditText"
-        android:layout_width="307dp"
-        android:layout_height="108dp"
-        android:layout_marginBottom="8dp"
+        android:id="@+id/editIngredients"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:fontFamily="sans-serif"
-        android:hint="Add a description"
-        android:inputType="textMultiLine"
+        android:hint="Ingredient"
+        android:inputType="textPersonName"
         android:shadowColor="@android:color/black"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textColor="@android:color/black"
-        android:textColorHint="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         android:typeface="normal"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintHorizontal_bias="0.276"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.074" />
+        app:layout_constraintTop_toBottomOf="@+id/editRecipeName" />
 
     <Button
         android:id="@+id/add_RecipeWithDescriptionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/dark_green"
+        android:onClick="doneEditingClicked"
         android:text="DONE"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.847"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintTop_toBottomOf="@+id/editInstructions" />
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/editInstructions"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Steps"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editIngredients" />
+
+    <ListView
+        android:id="@+id/ingredientsPreview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editIngredients" />
+
+    <ImageButton
+        android:id="@+id/addIngredientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="addIngredientClicked"
+        app:layout_constraintEnd_toEndOf="@+id/editRecipeName"
+        app:layout_constraintTop_toBottomOf="@+id/editRecipeName"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
 </android.support.constraint.ConstraintLayout>
