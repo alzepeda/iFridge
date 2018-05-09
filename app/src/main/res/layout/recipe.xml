@@ -11,7 +11,9 @@
         android:id="@+id/addRecipeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/dark_green"
@@ -19,18 +21,20 @@
         android:text="Add"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/addRecipeTextView"
         app:layout_constraintStart_toStartOf="@+id/addRecipeTextView"
         app:layout_constraintTop_toBottomOf="@+id/addRecipeTextView" />
 
     <TextView
         android:id="@+id/textViewDescription"
-        android:layout_width="284dp"
-        android:layout_height="91dp"
-        android:layout_marginBottom="8dp"
-        android:text="Long tap a recipe to view its description"
+        android:layout_width="376dp"
+        android:layout_height="83dp"
+        android:layout_marginBottom="28dp"
+        android:background="@color/opaque_white"
+        android:text="Long tap a recipe to view description\nYou currently can make the recipes marked by an * "
         android:textAlignment="center"
-        android:textColor="@color/wine"
-        android:textSize="30sp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recipeListView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:textAlignment="center"
         android:text="Want to add a recipe? Tap Add"
         android:textColor="@android:color/black"
         android:textSize="24sp"
@@ -74,18 +79,4 @@
         app:layout_constraintVertical_bias="1.0">
     </ListView>
 
-    <Button
-        android:id="@+id/findRecipeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/dark_green"
-        android:onClick="findRecipes"
-        android:text="Find Recipes"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/addRecipeTextView"
-        app:layout_constraintTop_toBottomOf="@+id/addRecipeTextView" />
 </android.support.constraint.ConstraintLayout>
