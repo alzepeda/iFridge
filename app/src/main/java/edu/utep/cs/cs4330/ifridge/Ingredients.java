@@ -8,7 +8,7 @@ public class Ingredients {
     public Ingredients(){
     }
     public boolean insertIngredient(String ingredient){
-       return ingredientList.add(ingredient);
+        return ingredientList.add(ingredient);
     }
     public boolean removeIngredient(String ingredient){
         return ingredientList.remove(ingredient);

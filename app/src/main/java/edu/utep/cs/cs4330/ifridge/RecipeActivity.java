@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ArrayAdapter;
@@ -51,15 +52,14 @@ public class RecipeActivity extends AppCompatActivity{
         toast(String.valueOf(index));
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("View Ingredients?")
+        builder.setMessage("Do you want to view the recipe?")
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent myIntent = new Intent(RecipeActivity.this,IngredientsInRecipe.class);
                         myIntent.putExtra("KEY", index+1);
                         startActivity(myIntent);
                     }
-                })
-                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         toast("Cancelled");
                     }
@@ -70,10 +70,40 @@ public class RecipeActivity extends AppCompatActivity{
 
     public void updateList(){
         recipeList.clear();
-
         Cursor res = recipeDB.getAllData();
-        while(res.moveToNext())
-            recipeList.add(res.getString(1));
+        String ingredientsList;
+        ArrayList<String> currentRecipe;
+        ArrayList<Boolean> contained;
+        boolean available;
+
+        while(res.moveToNext()) {
+            ingredientsList = res.getString(2);
+            currentRecipe = new ArrayList();
+            contained = new ArrayList();
+            available = true;
+            while(!ingredientsList.isEmpty()){
+                currentRecipe.add(ingredientsList.substring(0,ingredientsList.indexOf('\n')));
+                ingredientsList = ingredientsList.substring(ingredientsList.indexOf('\n')+1);
+            }
+
+            for (int i = 0; i < currentRecipe.size(); i++) {
+                contained.add(false);
+                for (int j = 0; j < ingredients.ingredientListSize(); j++) {
+                    if(currentRecipe.get(i).equalsIgnoreCase(ingredients.getIngredientList().get(j)))
+                        contained.set(i, true);
+                }
+            }
+
+            for (int i = 0; i < contained.size(); i++) {
+                if(!contained.get(i))
+                    available = false;
+            }
+
+            if(available)
+                recipeList.add("*" + res.getString(1));
+            else
+                recipeList.add(res.getString(1));
+        }
     }
 
     public void addRecipeClicked(View view) {
