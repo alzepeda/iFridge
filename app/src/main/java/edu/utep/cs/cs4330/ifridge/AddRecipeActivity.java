@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     ImageButton addIngredient;
     EditText editIngredient;
     EditText editRecipeName;
+    MultiAutoCompleteTextView editInstructions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         addIngredient = findViewById(R.id.addIngredientButton);
         editIngredient = findViewById(R.id.editIngredients);
         editRecipeName = findViewById(R.id.editRecipeName);
+        editInstructions = findViewById(R.id.editInstructions);
         ingredientPreview = findViewById(R.id.ingredientsPreview);
         listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ingredientList);
         recipeDB = new RecipeDatabaseHelper(this);
@@ -61,18 +64,20 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     public void doneEditingClicked(View view) {
         String title = editRecipeName.getText().toString();
+        String steps = editInstructions.getText().toString();
         String ingredients = "";
 
         if(ingredientList.size()==0 || title.length()==0)
             return;
 
         for (int i = 0; i < ingredientList.size(); i++) {
-            ingredients += ingredientList.get(i) + " ";
+            ingredients += ingredientList.get(i) + "\n";
         }
 
         Cursor res = recipeDB.getAllData(); //Call DB and retrieve all associated data
 
-        boolean isInserted = recipeDB.add(title,ingredients);
+        boolean isInserted = recipeDB.add(title,ingredients,steps);
+
         if (isInserted) {
             toast("Recipe Added");
             Intent myIntent = new Intent(AddRecipeActivity.this,RecipeActivity.class);

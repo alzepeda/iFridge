@@ -16,6 +16,7 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_1 = "ID";
     public static final String COL_2 = "RECIPE_NAME";
     public static final String COL_3 = "INGREDIENTS";
+    public static final String COL_4 = "STEPS";
     public static SQLiteDatabase db;
     public static ContentValues contentValues;
     public RecipeDatabaseHelper(Context context) {
@@ -24,19 +25,20 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT, RECIPE_NAME TEXT, INGREDIENTS TEXT)");
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT, RECIPE_NAME TEXT, INGREDIENTS TEXT, STEPS TEXT)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
-    public boolean add(String item, String ingredients){
+    public boolean add(String item, String ingredients, String steps){
         item.toLowerCase();
         db = getWritableDatabase();
         contentValues = new ContentValues();
         contentValues.put(COL_2,item);
         contentValues.put(COL_3,ingredients);
+        contentValues.put(COL_4,steps);
         long result = db.insert(TABLE_NAME,null,contentValues);
         if(result < 0){
             return false;
