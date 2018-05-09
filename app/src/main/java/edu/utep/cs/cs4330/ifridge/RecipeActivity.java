@@ -7,6 +7,7 @@ package edu.utep.cs.cs4330.ifridge;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
@@ -24,27 +27,23 @@ public class RecipeActivity extends AppCompatActivity{
     private ListAdapter listAdapter;
     private RecipeDatabaseHelper recipeDB;
     public Ingredients ingredients;
-    private Recipes recipes;
+    ArrayList<String> recipeList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe);
-        recipes = new Recipes();
         ingredients = new Ingredients();
-        listView = findViewById(R.id.recipeListView);
-        listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,recipes.getRecipesList());
         recipeDB =new RecipeDatabaseHelper(this);
+        updateList();
+        listView = findViewById(R.id.recipeListView);
+        listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,recipeList);
         listView.setOnItemClickListener((a, v, position, id) ->showAlertDialog(position));
-        showRecipes();
+        listView.setAdapter(listAdapter);
     }
 
     private void toast(String msg){
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
-    }
-
-    private void showRecipes(){
-        listView.setAdapter(listAdapter);
     }
 
     /**Alert Dialog to Delete items from list and DB*/
@@ -55,9 +54,9 @@ public class RecipeActivity extends AppCompatActivity{
         builder.setMessage("View Ingredients?")
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        String itemSelected = listAdapter.getItem(index).toString();
-                        recipes.getRecipesList().clear();
-                        recipes.setRecipeSelected(itemSelected);// get the item user wants to delete from ListView
+                        Intent myIntent = new Intent(RecipeActivity.this,IngredientsInRecipe.class);
+                        myIntent.putExtra("KEY", index+1);
+                        startActivity(myIntent);
                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -67,6 +66,14 @@ public class RecipeActivity extends AppCompatActivity{
                 });
         builder.create(); //build AlertDialog
         builder.show();//show AlertDialog
+    }
+
+    public void updateList(){
+        recipeList.clear();
+
+        Cursor res = recipeDB.getAllData();
+        while(res.moveToNext())
+            recipeList.add(res.getString(1));
     }
 
     public void addRecipeClicked(View view) {

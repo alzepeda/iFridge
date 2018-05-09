@@ -19,6 +19,8 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_4 = "STEPS";
     public static SQLiteDatabase db;
     public static ContentValues contentValues;
+    public static int recipeCount = 0;
+
     public RecipeDatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
     }
