@@ -1,8 +1,8 @@
 /**Created by
-@author AnaZepeda
-@author SebastianGonzalez
-@version 2.1
-*/
+ @author AnaZepeda
+ @author SebastianGonzalez
+ @version 2.1
+ */
 package edu.utep.cs.cs4330.ifridge;
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,8 +13,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class RecipeDatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_NAME   = "Recipes";
     public static final String TABLE_NAME = "Recipes_table";
-    public static final String COL_1 = "RECIPE_NAME";
-    public static SQLiteDatabase recipesDatabase;
+    public static final String COL_1 = "ID";
+    public static final String COL_2 = "RECIPE_NAME";
+    public static final String COL_3 = "INGREDIENTS";
+    public static SQLiteDatabase db;
     public static ContentValues contentValues;
     public RecipeDatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
@@ -22,31 +24,38 @@ public class RecipeDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"(RECIPE_NAME TEXT)");
+        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT, RECIPE_NAME TEXT, INGREDIENTS TEXT)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
-    public boolean add(String item){
-        if(item.isEmpty()){
-            return false;
-        }
+    public boolean add(String item, String ingredients){
         item.toLowerCase();
-        recipesDatabase = getWritableDatabase();
+        db = getWritableDatabase();
         contentValues = new ContentValues();
-        contentValues.put(COL_1,item);
-        long result = recipesDatabase.insert(TABLE_NAME,null,contentValues);
+        contentValues.put(COL_2,item);
+        contentValues.put(COL_3,ingredients);
+        long result = db.insert(TABLE_NAME,null,contentValues);
         if(result < 0){
             return false;
         }
-            return true;
+        return true;
     }
+
+    public Cursor getAllData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
+
+        return res;
+    }
+
     public boolean delete(String item){
         SQLiteDatabase db = getWritableDatabase();
-        return db.delete(TABLE_NAME, COL_1 + "=" + "'"+item+"'", null) > 0;
-        }
+        return db.delete(TABLE_NAME, COL_2 + "=" + "'"+item+"'", null) > 0;
+    }
+
     public void showRecipes(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
