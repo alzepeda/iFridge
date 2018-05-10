@@ -60,7 +60,7 @@ public class FridgeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getGroupId()) {
             case R.id.deleteOption:
-                clearDatabase();
+                fridgeDB.deleteAll();
                 toast("Fridge cas been cleared");
                 ingredientList.getIngredientList().clear();
                 showIngredients();
@@ -94,9 +94,6 @@ public class FridgeActivity extends AppCompatActivity {
         showIngredients();
     }
 
-    public void clearDatabase() {
-        fridgeDB.deleteAll();
-    }
 
     /**
      * Alert Dialog to Delete items from list and DB

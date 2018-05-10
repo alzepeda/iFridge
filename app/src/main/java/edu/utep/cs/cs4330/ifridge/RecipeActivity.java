@@ -29,12 +29,15 @@ public class RecipeActivity extends AppCompatActivity{
     private RecipeDatabaseHelper recipeDB;
     public Ingredients ingredients;
     ArrayList<String> recipeList = new ArrayList();
+    private Button addRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe);
         ingredients = new Ingredients();
+        addRecipe = findViewById(R.id.addRecipeButton);
+        addRecipe.setOnClickListener(e->addRecipeClicked());
         recipeDB =new RecipeDatabaseHelper(this);
         updateList();
         listView = findViewById(R.id.recipeListView);
@@ -106,7 +109,7 @@ public class RecipeActivity extends AppCompatActivity{
         }
     }
 
-    public void addRecipeClicked(View view) {
+    public void addRecipeClicked() {
         Intent myIntent = new Intent(RecipeActivity.this,AddRecipeActivity.class);
         startActivity(myIntent);
     }
