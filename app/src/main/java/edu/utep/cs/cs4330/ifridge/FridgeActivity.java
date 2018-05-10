@@ -33,7 +33,6 @@ public class FridgeActivity extends AppCompatActivity {
     private ListView listView;
     private ListAdapter listAdapter;
     public Ingredients ingredientList;
-    private MenuInflater menuInflater;
 
     @Override
     protected void onPause() {
@@ -47,25 +46,6 @@ public class FridgeActivity extends AppCompatActivity {
                 ingredientList.insertIngredient(buffer.toString());
             }
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.settings_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getGroupId()) {
-            case R.id.deleteOption:
-                fridgeDB.deleteAll();
-                toast("Fridge cas been cleared");
-                ingredientList.getIngredientList().clear();
-                showIngredients();
-        }
-        return true;
     }
 
     @Override
@@ -94,12 +74,14 @@ public class FridgeActivity extends AppCompatActivity {
         showIngredients();
     }
 
+    public void clearDatabase() {
+        fridgeDB.deleteAll();
+    }
 
     /**
      * Alert Dialog to Delete items from list and DB
      */
     private void showAlertDialog(int index) {
-        toast(String.valueOf(index));
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Delete")

@@ -29,15 +29,12 @@ public class RecipeActivity extends AppCompatActivity{
     private RecipeDatabaseHelper recipeDB;
     public Ingredients ingredients;
     ArrayList<String> recipeList = new ArrayList();
-    private Button addRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe);
         ingredients = new Ingredients();
-        addRecipe = findViewById(R.id.addRecipeButton);
-        addRecipe.setOnClickListener(e->addRecipeClicked());
         recipeDB =new RecipeDatabaseHelper(this);
         updateList();
         listView = findViewById(R.id.recipeListView);
@@ -52,19 +49,28 @@ public class RecipeActivity extends AppCompatActivity{
 
     /**Alert Dialog to Delete items from list and DB*/
     private void showAlertDialog(int index){
-        toast(String.valueOf(index));
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Do you want to view the recipe?")
-                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        builder.setMessage("What would you like to do?")
+                .setPositiveButton("VIEW", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent myIntent = new Intent(RecipeActivity.this,IngredientsInRecipe.class);
                         myIntent.putExtra("KEY", index+1);
                         startActivity(myIntent);
                     }
-                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        toast("Cancelled");
+                        String itemToDelete = listAdapter.getItem(index).toString();// get the item user wants to delete from ListView
+                        if(itemToDelete.startsWith("*")){
+                            itemToDelete = itemToDelete.substring(1);
+                        }
+                        if (recipeDB.delete(itemToDelete)) { //if exists in DB and was Successfully deleted
+                            toast("Successfully deleted " + itemToDelete);
+                            updateList();
+                            listView.setAdapter(listAdapter);
+                        } else {
+                            toast("Failed or Not found");
+                        }
                     }
                 });
         builder.create(); //build AlertDialog
@@ -109,7 +115,7 @@ public class RecipeActivity extends AppCompatActivity{
         }
     }
 
-    public void addRecipeClicked() {
+    public void addRecipeClicked(View view) {
         Intent myIntent = new Intent(RecipeActivity.this,AddRecipeActivity.class);
         startActivity(myIntent);
     }
